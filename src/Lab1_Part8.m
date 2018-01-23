@@ -22,7 +22,7 @@ import java.lang.*;
 
 % Create a PacketProcessor object to send data to the nucleo firmware
 pp = PacketProcessor(7); % !FIXME why is the deviceID == 7?
-SERV_ID = 43;            % we will be talking to server ID 37 on
+SERV_ID = 44;            % we will be talking to server ID 37 on
                          % the Nucleo
 
 DEBUG   = true;          % enables/disables debug prints
