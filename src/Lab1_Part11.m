@@ -22,7 +22,7 @@ import java.lang.*;
 
 % Create a PacketProcessor object to send data to the nucleo firmware
 pp = PacketProcessor(7); % !FIXME why is the deviceID == 7?
-SERV_ID = 44;            % we will be talking to server ID 37 on
+SERV_ID = 37;            % we will be talking to server ID 37 on
                          % the Nucleo
 
 DEBUG   = true;          % enables/disables debug prints
@@ -32,7 +32,7 @@ DEBUG   = true;          % enables/disables debug prints
 % packet sizes up to 64 bytes.
 packet = zeros(15, 1, 'single');
 Output = zeros(1, 0, 'single');
-viaPts = [200,200];
+viaPts = [0, 0,0,0,0, 400, 400, 400, 400, 400, 400, 400, 400, 400, 400, 400, 400, 400, 400, 400, 400, 400, 400];
 
 tic
 % Iterate through a sine wave for joint values
