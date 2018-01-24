@@ -31,7 +31,7 @@ DEBUG   = true;          % enables/disables debug prints
 % bytes for this purpose. Recall that the HID interface supports
 % packet sizes up to 64 bytes.
 packet = zeros(15, 1, 'single');
-Output = zeros(15, 0, 'single');
+Output = zeros(15, 0, 'single');%15*0 vector
 
 
 tic
@@ -41,7 +41,7 @@ for k = 0:4
     
     % Send packet to the server and get the response
     returnPacket = pp.command(SERV_ID, packet);
-    Output = horzcat(Output,returnPacket);
+    Output = horzcat(Output,returnPacket);%concatenate returnpacket onto vactor to form a matrix
     toc
     
     if DEBUG
@@ -54,7 +54,7 @@ for k = 0:4
     pause(1) %timeit(returnPacket) !FIXME why is this needed?
 end
 disp(Output);
-csvwrite('Lab1_Part7.csv',Output);
+csvwrite('Lab1_Part7.csv',Output);%write to csv
 % Clear up memory upon termination
 pp.shutdown()
 clear java;
