@@ -32,7 +32,8 @@ DEBUG   = true;          % enables/disables debug prints
 % packet sizes up to 64 bytes.
 packet = zeros(15, 1, 'single');
 Output = zeros(1, 0, 'single');
-viaPts = [0, 0,0,0,0, 400, 400, 400, 400, 400, 400, 400, 400, 400, 400, 400, 400, 400, 400, 400, 400, 400, 400];
+viaPts = [0, 400, -400, 400, 0];
+%5 set positions for robot
 
 tic
 % Iterate through a sine wave for joint values
@@ -51,14 +52,15 @@ for k = viaPts
         disp(returnPacket);
     end
    
-    pause(1) %timeit(returnPacket) !FIXME why is this needed?
+    pause(1) %timeit(returnPacket)
 end
 plot(Output,'color','bl')
+%plot output vs time
 title('RBE 3001 Team 8 Step 11')
 xlabel('Packet Readings(Sec)')
 ylabel('Base Joint Angle(Encoder Tics)')
 disp(Output);
-csvwrite('Lab1_Part11.csv',Output);
+csvwrite('Lab1_Part11.csv',Output);%write to csv file
 % up memory upon termination
 pp.shutdown()
 clear java;
