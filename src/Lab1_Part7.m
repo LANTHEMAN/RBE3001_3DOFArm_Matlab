@@ -22,7 +22,7 @@ import java.lang.*;
 
 % Create a PacketProcessor object to send data to the nucleo firmware
 pp = PacketProcessor(7); % !FIXME why is the deviceID == 7?
-SERV_ID = 42;            % we will be talking to server ID 37 on
+SERV_ID = 37;            % we will be talking to server ID 37 on
                          % the Nucleo
 
 DEBUG   = true;          % enables/disables debug prints
@@ -54,7 +54,7 @@ for k = 0:4
     pause(1) %timeit(returnPacket) !FIXME why is this needed?
 end
 disp(Output);
-csvwrite('Lab1_Part7.csv',Output);%write to csv
+%csvwrite('Lab1_Part7.csv',Output);%write to csv
 % Clear up memory upon termination
 pp.shutdown()
 clear java;
