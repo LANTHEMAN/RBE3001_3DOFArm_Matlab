@@ -126,10 +126,31 @@ ylabel('Joint Velocity (degree/s)')
 %csvwrite('Lab2_Part5.csv',Output);%write to csv
 % Clear up memory upon termination
 pp.shutdown()
+
+CubicMatrix = [1 0 0 0;
+    0 1 0 0;
+    1 toc toc^2 toc^3;
+    0 1 2*toc 3*toc^2];
+
+CubicInv = inv(CubicMatrix);
+
+
+VelAndPos1 = [0; 0; 0; V1(29)];
+VelAndPos2 = [Outputangle(1,2); 0; Outputangle(29,2); V2(29)];
+VelAndPos3 = [Outputangle(1,3); 0; Outputangle(29,3); V3(29)];
+
+Avals1 = inv(CubicInv)*VelAndPos1;
+Avals2 = inv(CubicInv)*VelAndPos2;
+Avals3 = inv(CubicInv)*VelAndPos3;
+
+disp('A values');
+disp(Avals1);
+disp(Avals2);
+disp(Avals3);
+
 clear java;
 
 toc
-
 
 
 
