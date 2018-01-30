@@ -62,14 +62,56 @@ CPts = [0, 1024, 1024];
     set(PLOTTT,'ZDataSource','ACTUALZ');
     Output = zeros(0, 3, 'single');%3*0 vector
     Outputangle = zeros(0, 4, 'single');%3*0 vector
+    qX = []
+    qY = []
+    qZ = []
+    
+    for i = 2:2:4
+    CubicMatrix = [1 0 0 0;
+    0 1 0 0;
+    1 i i^2 i^3;
+    0 1 2*i 3*i^2];
+
+    CubicInv = inv(CubicMatrix);
+
+
+    Xtrajectory = [0,0; 0,0; 0,0; 0,0];
+    Ytrajectory = [0,0; 0,0; 0,1024; 0,0];
+    Ztrajectory = [0,1024; 0,0; 1024,1024; 0,0];
+
+    AvalsX = (CubicInv)*Xtrajectory(:,(i/2));
+    AvalsY = (CubicInv)*Ytrajectory(:,(i/2));
+    AvalsZ = (CubicInv)*Ztrajectory(:,(i/2));
+    
+    for j= (i-2):0.2:i
+       qX = [qX,AvalsX(1)+AvalsX(2)*j+AvalsX(3)*(j^2)+AvalsX(4)*(j^3)];
+       qY = [qY,AvalsY(1)+AvalsY(2)*j+AvalsY(3)*(j^2)+AvalsY(4)*(j^3)];
+       qZ = [qZ,AvalsZ(1)+AvalsZ(2)*j+AvalsZ(3)*(j^2)+AvalsZ(4)*(j^3)];
+    end
+    
+ 
+
+    end
+
+    disp('q values');
+    disp(qX);
+    disp(qY);
+    disp(qZ);
+    
+    
+    
     
 tic
 % Iterate through a sine wave for joint values
-for k = 10:39
+for k = 1:22
   
-    packet(1) = APts(floor(k/10));
-    packet(4) = BPts(floor(k/10));
-    packet(7) = CPts(floor(k/10));
+    packet(1) = qX(k);
+
+    packet(4) = qY(k);
+
+    packet(7) = qZ(k);
+
+    
     
     % Send packet to the server and get the response
     returnPacket = pp.command(SERV_ID, packet);
@@ -109,7 +151,7 @@ for k = 10:39
 
 
 
-    pause(0.1) %timeit(returnPacket) 
+    pause(0.2) %timeit(returnPacket) 
 end
 V1 = diff(Outputangle(:,1))
 V2 = diff(Outputangle(:,2))
@@ -127,26 +169,7 @@ ylabel('Joint Velocity (degree/s)')
 % Clear up memory upon termination
 pp.shutdown()
 
-CubicMatrix = [1 0 0 0;
-    0 1 0 0;
-    1 toc toc^2 toc^3;
-    0 1 2*toc 3*toc^2];
 
-CubicInv = inv(CubicMatrix);
-
-
-VelAndPos1 = [0; 0; 0; V1(29)];
-VelAndPos2 = [Outputangle(1,2); 0; Outputangle(29,2); V2(29)];
-VelAndPos3 = [Outputangle(1,3); 0; Outputangle(29,3); V3(29)];
-
-Avals1 = inv(CubicInv)*VelAndPos1;
-Avals2 = inv(CubicInv)*VelAndPos2;
-Avals3 = inv(CubicInv)*VelAndPos3;
-
-disp('A values');
-disp(Avals1);
-disp(Avals2);
-disp(Avals3);
 
 clear java;
 
