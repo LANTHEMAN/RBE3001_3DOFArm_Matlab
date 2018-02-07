@@ -1,0 +1,13 @@
+function [ J ] = jacob0( returnPacket,L1,L2,L3  )
+[ ACTUALX,ACTUALY,ACTUALZ, TIP ] = Forkin(returnPacket,L1,L2,L3 );
+JointP0 = cross([0;0;1],(P3(1:3,4)-[0;0;0]));
+JointP1 = cross(P1(1:3,3),(P3(1:3,4)-P1(1:3,4)));
+JointP2 = cross(P2(1:3,3),(P3(1:3,4)-P2(1:3,4)));
+JointP3 = cross(P3(1:3,3),(P3(1:3,4)-P3(1:3,4)));
+
+JointR0 = [0;0;1];
+JointR1 = P1(1:3,3);
+JointR1 = P1(1:3,3);
+
+end
+
