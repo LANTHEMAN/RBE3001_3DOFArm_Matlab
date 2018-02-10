@@ -1,4 +1,4 @@
-function [ AvalsX, AvalsY, AvalsZ ] = QuintPoly( )
+function [ AvalsX, AvalsY, AvalsZ ] = QuinticPolynomial( )
 
     for i = 2:2:4
     QuinticMatrix = [1 (i-2) (i-2)^2 (i-2)^3 (i-2)^4 (i-2)^5;

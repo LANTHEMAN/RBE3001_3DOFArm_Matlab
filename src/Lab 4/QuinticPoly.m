@@ -1,4 +1,4 @@
-function [ Xtrajectory, Ytrajectory, Ztrajectory] = QuinticPoly( qX,qY,qZ )
+function [ qX,qY,qZ ] = QuinticPoly( qX,qY,qZ)
    for i = 3:3:9
     QuinticMatrix = [1 (i-3) (i-3)^2 (i-3)^3 (i-3)^4 (i-3)^5;
                    0 1 2*(i-3) 3*(i-3)^2 4*(i-3)^3 5*(i-3)^4;

@@ -44,25 +44,61 @@ OutputAngle = zeros(0, 3, 'single');%3*0 vector
 k = 1;
 tic
 time = 0;
-while time<40
+pr1vector = [];
+pr2vector = [];
+pr3vector = [];
 
+
+
+    qX = [];
+    qY = [];
+    qZ = [];
+    
+%Question 5   
+[qX,qY,qZ] = QuinticPoly(qX,qY,qZ);
+
+
+while (time<40)
+   if k > 31
+        k = 1;
+    end
+    [A,B,C] = ikin3001(qX(k),qY(k),qZ(k),L1,L2,L3);
+    packet = GotoPosition(packet,A,B,C);
     % Send packet to the server and get the response
     returnPacket = pp.command(SERV_ID, packet);
-
+    
     time = toc;%record time
-    [ P1,P2,P3,ACTUALX,ACTUALY,ACTUALZ, TIP ] = Forkin(returnPacket,L1,L2,L3 );
-    J  = jacob0( P1,P2,P3 );
-    disp(J);
-    D = det(J);
-    disp(D);
-    diff(pr1)
+    [ pr1,pr2,pr3,P1,P2,P3,ACTUALX,ACTUALY,ACTUALZ, TIP ] = Forkin(returnPacket,L1,L2,L3 );
+    OutputTIP = vertcat(OutputTIP,TIP);%concatenate returnpacket onto vactor to form a matrix
+    OutputAngle = vertcat(OutputAngle,[A,B,C]);%concatenate returnpacket onto vactor to form a matrix
+    [JP,J]  = jacob0( P1,P2,P3 );
+    disp(JP);
+    InvJP = inv(JP);
+    QDot = InvJP * [TIP(1);TIP(2);TIP(3)];
+    disp('QDot');
+    disp(QDot);
+    PPP = [0;0;0];
+    if time > 1
+    dpr1 = diff(pr1vector);
+    dpr2 = diff(pr2vector);
+    dpr3 = diff(pr3vector);
+    PPP = JP*[dpr1(end);dpr2(end);dpr3(end)];
+    end
+    
     timeline = [timeline,time];
+    pr1vector = [pr1vector,pr1];
+    pr2vector = [pr2vector,pr2];
+    pr3vector = [pr3vector,pr3];
     
     refreshdata(PLOTTT)
-    refreshdata(Enddd)
+    %refreshdata(Enddd)
+    %VelocityVector( TIP,PPP );
     pause(0.1) %timeit(returnPacket)
 
-
+    toler = 30;
+    if abs(TIP(1)-qX(k)) <= toler &&  abs(TIP(2)-qY(k)) <= toler &&  abs(TIP(3)-qZ(k)) <= toler
+      k = k+1;
+    end
 end
 
 
