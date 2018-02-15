@@ -73,17 +73,12 @@ while (time<10)
     
     time = toc;%record time
     [ pr1,pr2,pr3,P1,P2,P3,ACTUALX,ACTUALY,ACTUALZ, TIP ] = Forkin(returnPacket,L1,L2,L3 );
-    OutputTIP = vertcat(OutputTIP,TIP);%concatenate returnpacket onto vactor to form a matrix
-    OutputAngle = vertcat(OutputAngle,[A,B,C]);%concatenate returnpacket onto vactor to form a matrix
+
     [JP,J]  = jacob0( P1,P2,P3 );
     disp(JP);
     InvJP = inv(JP);
     QDot = InvJP * [TIP(1);TIP(2);TIP(3)];
-    disp('QDot');
-    disp(QDot);
-    OutputQDot1 = vertcat(OutputQDot1,QDot(1));%concatenate returnpacket onto vactor to form a matrix
-    OutputQDot2 = vertcat(OutputQDot2,QDot(1));%concatenate returnpacket onto vactor to form a matrix
-    OutputQDot3 = vertcat(OutputQDot3,QDot(1));%concatenate returnpacket onto vactor to form a matrix
+
     PPP = [0;0;0];
     if time > 1
     dpr1 = diff(pr1vector);
@@ -91,7 +86,11 @@ while (time<10)
     dpr3 = diff(pr3vector);
     PPP = JP*[dpr1(end);dpr2(end);dpr3(end)];
     end
-    
+    OutputTIP = vertcat(OutputTIP,TIP);%concatenate returnpacket onto vactor to form a matrix
+    OutputAngle = vertcat(OutputAngle,[A,B,C]);%concatenate returnpacket onto vactor to form a matrix
+    OutputQDot1 = vertcat(OutputQDot1,QDot(1));%concatenate returnpacket onto vactor to form a matrix
+    OutputQDot2 = vertcat(OutputQDot2,QDot(1));%concatenate returnpacket onto vactor to form a matrix
+    OutputQDot3 = vertcat(OutputQDot3,QDot(1));%concatenate returnpacket onto vactor to form a matrix
     timeline = [timeline,time];
     pr1vector = [pr1vector,pr1];
     pr2vector = [pr2vector,pr2];
