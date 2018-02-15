@@ -1,0 +1,4 @@
+L1 = 135;
+L2 = 175;
+L3 = 169.28;
+[pr1,pr2,pr3,P1,P2,P3,ACTUALX,ACTUALY,ACTUALZ,TIP] = ForkinR(0,0,pi/4,L1,L2,L3);
