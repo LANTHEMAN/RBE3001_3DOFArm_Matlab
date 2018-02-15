@@ -47,14 +47,14 @@ OutputQDot3 = zeros(0, 3, 'single');%3*0 vector
 k = 1;
 tic
 time = 0;
-pr1vector = [];
+pr1vector = [];%initialize q data for each joint
 pr2vector = [];
 pr3vector = [];
 
     PPP = [0;0;0];
 
 
-    qX = [];
+    qX = [];%initializing positions
     qY = [];
     qZ = [];
     
@@ -81,7 +81,7 @@ while (time<10)
 
     PPP = [0;0;0];
     if time > 1
-    dpr1 = diff(pr1vector);
+    dpr1 = diff(pr1vector);%calc Q Dot
     dpr2 = diff(pr2vector);
     dpr3 = diff(pr3vector);
     PPP = JP*[dpr1(end);dpr2(end);dpr3(end)];
@@ -101,17 +101,12 @@ while (time<10)
     %VelocityVector( TIP,PPP );
     pause(0.1) %timeit(returnPacket)
 
-    toler = 30;
+    toler = 30;%check error 
     if abs(TIP(1)-qX(k)) <= toler &&  abs(TIP(2)-qY(k)) <= toler &&  abs(TIP(3)-qZ(k)) <= toler
       k = k+1;
     end
 end
 
-figure(2)
-plot(timeline,[OutputQDot1,OutputQDot2,OutputQDot3]);
-xlabel('Time(s)')
-ylabel('QDot')
-title('Robot Joint Angle V Vs Time')
 % Clear up memory upon termination
 pp.shutdown()
 clear java;
