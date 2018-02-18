@@ -33,47 +33,8 @@ DEBUG   = true;          % enables/disables debug prints
 % bytes for this purpose. Recall that the HID interface supports
 % packet sizes up to 64 bytes.
 packet = zeros(15, 1, 'single');
-timeline = [];
-
-
-[PLOTTT] = LivePlot2D();
-[Xd,Zd] = ginput;
-k = 1;
-tic
-time = 0;
-
-    Ai=0;
-    Bi=0;
-    Ci=0;
-
-while (1)
-
-   toler = 10000;
-
-
-        [pr1,pr2,pr3,P1,P2,P3,ACTUALX,ACTUALY,ACTUALZ,TIP] = ForkinR(Ai,Bi,Ci,L1,L2,L3);
-        [JP,J] = jacob0(P1,P2,P3);
-        InvJP = pinv(JP);
-        deltaQ = 0.1*InvJP*([Xd;0;Zd]-[TIP(1);TIP(2);TIP(3)]);
-
-        Ai = Ai + deltaQ(1);
-        Bi = Bi + deltaQ(2);
-        Ci = Ci + deltaQ(3);
-       
-    %record time
-    time = toc;
-    refreshdata(PLOTTT)
-    pause(0.1) 
-    error = norm([TIP(1);TIP(2);TIP(3)] - [Xd;0;Zd]);
-    disp(error);
-    if error < 0.1
-    break;
-    end
-end
-packet = [(Ai/(2*pi)*4096),0,0,(Bi/(2*pi)*4096),0,0,(Ci/(2*pi)*4096),0,0,0,0,0,0,0,0];
-disp(packet);
+TaylorInv(L1,L2,L3,packet);
 returnPacket = pp.command(SERV_ID, packet);
-
 % Clear up memory upon termination
 pp.shutdown()
 clear java; 
