@@ -3,7 +3,7 @@ function [ TForce,ACTUALX,ACTUALY,ACTUALZ,TIP ] = TIPForce( returnPacket,Torque,
         [JP] = jacob0(P1,P2,P3);
         tranJP = transpose(JP);
         InvJP = pinv(tranJP);
-        TForce = InvJP * Torque;
+        TForce = InvJP * Torque*1000;
         
 end
 

@@ -5,10 +5,9 @@ TorqueArrayC(K) = returnPacket(9);
 if time < 1
     Torque = [0;0;0];
 else
-
-    TorqueAvgA = (mean(TorqueArrayA)-0.5635)/178.5;
-    TorqueAvgB = (mean(TorqueArrayB)-0.5071)/178.5;
-    TorqueAvgC = (mean(TorqueArrayC)-0.4828)/178.5;
+    TorqueAvgA = (mean(TorqueArrayA)-0.5635)*178.5;
+    TorqueAvgB = (mean(TorqueArrayB)-0.5071)*178.5;
+    TorqueAvgC = (mean(TorqueArrayC)-0.4828)*178.5;
     Torque = [TorqueAvgA;TorqueAvgB;TorqueAvgC];
 
 end 

@@ -61,9 +61,9 @@ while (1)
     [ Torque,TorqueArrayA,TorqueArrayB,TorqueArrayC ] = TorqueRead(returnPacket,time,K,TorqueArrayA,TorqueArrayB,TorqueArrayC);
     
     [TForce,ACTUALX,ACTUALY,ACTUALZ,TIP] = TIPForce(returnPacket,Torque,L1,L2,L3);
-    disp(Torque);
+    disp(returnPacket);
     refreshdata(PLOTTT);
-    quiver3(TIP(1),TIP(2),TIP(3),TForce(1),TForce(2),TForce(3));
+    
     
     
     
