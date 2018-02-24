@@ -1,4 +1,5 @@
 function [PLOTTT,Enddd] = LivePlot( )
+    figure(1);
     PLOTTT = plot3(0,0,0,'-o');
     grid('on')
     xlim([-300 400])
@@ -16,7 +17,5 @@ function [PLOTTT,Enddd] = LivePlot( )
     set(Enddd,'XDataSource','OutputTIP(:,1)');
     set(Enddd,'YDataSource','OutputTIP(:,2)');
     set(Enddd,'ZDataSource','OutputTIP(:,3)');
-%     Vector = quiver3(0,0,0,0,0,0);
-%     set(Vector, 
 end
 
