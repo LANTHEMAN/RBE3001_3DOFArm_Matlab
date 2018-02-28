@@ -35,10 +35,10 @@ DEBUG   = true;          % enables/disables debug prints
 packet = zeros(15, 1, 'single');
 % timeline = [];
 
-TorqueArrayA = zeros(10, 1, 'single');
-TorqueArrayB = zeros(10, 1, 'single');
-TorqueArrayC = zeros(10, 1, 'single');
- [PLOTTT,END] = LivePlot();
+TorqueArrayA = zeros(3, 1, 'single');
+TorqueArrayB = zeros(4, 1, 'single');
+TorqueArrayC = zeros(4, 1, 'single');
+ [PLOTTT,TF] = LivePlot();
 % [Xd,Zd] = ginput;
 K = 0;
 
@@ -50,9 +50,11 @@ K = 0;
 %     Ci=0;
 
 while (1)
-    packet(4) = 1024;
+    packet(1) = 0;
+    packet(4) = 340;
+    packet(7) = 0;
     K = K+1;
-    if K > 10
+    if K > 4
         K = 1;
     end
     returnPacket = pp.command(SERV_ID, packet);
@@ -61,39 +63,19 @@ while (1)
     [ Torque,TorqueArrayA,TorqueArrayB,TorqueArrayC ] = TorqueRead(returnPacket,time,K,TorqueArrayA,TorqueArrayB,TorqueArrayC);
     
     [TForce,ACTUALX,ACTUALY,ACTUALZ,TIP] = TIPForce(returnPacket,Torque,L1,L2,L3);
-    disp(returnPacket);
+    TForce = TForce * 10;
+    TForce = TForce;
+    disp('Torque');
+    disp(Torque);
+    disp(TForce)
+    
     refreshdata(PLOTTT);
+    refreshdata(TF);
+    %quiver3(TIP(1),TIP(2),TIP(3),TForce(1),TForce(2),TForce(3));
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-%         [pr1,pr2,pr3,P1,P2,P3,ACTUALX,ACTUALY,ACTUALZ,TIP] = ForkinR(Ai,Bi,Ci,L1,L2,L3);
-%         [JP,J] = jacob0(P1,P2,P3);
-%         InvJP = pinv(JP);
-%         deltaQ = 0.1*InvJP*([Xd;0;Zd]-[TIP(1);TIP(2);TIP(3)]);
-% 
-%         Ai = Ai + deltaQ(1);
-%         Bi = Bi + deltaQ(2);
-%         Ci = Ci + deltaQ(3);
-
-
-%     refreshdata(PLOTTT)
-    pause(0.02) 
-%     error = norm([TIP(1);TIP(2);TIP(3)] - [Xd;0;Zd]);
-%     disp(error);
-%     if error < 0.1
-%     break;
-%     end
+    pause(0.1) 
 end
-% packet = [(Ai/(2*pi)*4096),0,0,(Bi/(2*pi)*4096),0,0,(Ci/(2*pi)*4096),0,0,0,0,0,0,0,0];
-% disp(packet);
+
 
 
 % Clear up memory upon termination

@@ -75,7 +75,7 @@ CPts = [0, 1024, 1024];%theta 3
     CubicInv = inv(CubicMatrix);%cubic inverse
 
 
-    Xtrajectory = [0,0;        0,0;    0,0;     0,0];%set points and velocity for trajectory [Q0,V0,Qf,Vf]
+    Xtrajectory = [0;        0;    0;     0];%set points and velocity for trajectory [Q0,V0,Qf,Vf]
     Ytrajectory = [0,-94;    0,0;    -94,490;   0,0];
     Ztrajectory = [0,346;   0,0;    346,-131;  0,0];
 
@@ -83,7 +83,7 @@ CPts = [0, 1024, 1024];%theta 3
     AvalsY = (CubicInv)*Ytrajectory(:,(i/2));
     AvalsZ = (CubicInv)*Ztrajectory(:,(i/2));
     
-    for j= (i-2):0.2:i%looping through each set interval, find each sub-configuration and put in vectors.
+    for j= (i-2):0.4:i%looping through each set interval, find each sub-configuration and put in vectors.
        qX = [qX,AvalsX(1)+AvalsX(2)*j+AvalsX(3)*(j^2)+AvalsX(4)*(j^3)];
        qY = [qY,AvalsY(1)+AvalsY(2)*j+AvalsY(3)*(j^2)+AvalsY(4)*(j^3)];
        qZ = [qZ,AvalsZ(1)+AvalsZ(2)*j+AvalsZ(3)*(j^2)+AvalsZ(4)*(j^3)];

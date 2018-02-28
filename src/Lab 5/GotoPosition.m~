@@ -1,0 +1,30 @@
+ function [ packet ] = GotoPosition( packet,X,Y,Z,pp,SERV_ID,returnPacket,i)
+%     disp('prepacket');
+%     disp(packet);
+if i == 5
+    packet(1)=X;
+    packet(4) =Y;
+    packet(7) = Z;
+    j = 1;
+    distanceX = (X - returnPacket(1));
+    distanceY = (Y - returnPacket(4));
+    distanceZ = (Z - returnPacket(7));
+    while j <= 4
+    packet(1) = X - distanceX*(4-j)/4; %packets for joint angles
+    packet(4) = Y - distanceY*(4-j)/4;
+    packet(7) = Z - distanceZ*(4-j)/4;
+        returnPacket = pp.command(SERV_ID, packet);
+        innererror = norm([returnPacket(1),returnPacket(4),returnPacket(7)] -[packet(1),packet(4),packet(7)]);
+        %disp(error);
+        if innererror < 50
+            j = j+1;
+        end
+    pause(0.05);
+%     disp('postpacket');
+%     disp(packet);
+    end
+    
+    
+
+end
+
