@@ -13,10 +13,10 @@ end
     distanceX = (X - returnPacket(1));
     distanceY = (Y - returnPacket(4));
     distanceZ = (Z - returnPacket(7));
-    while j <= 10
-    packet(1) = X - distanceX*(10-j)/10; %packets for joint angles
-    packet(4) = Y - distanceY*(10-j)/10;
-    packet(7) = Z - distanceZ*(10-j)/10;
+    while j <= 25
+    packet(1) = X - distanceX*(25-j)/25; %packets for joint angles
+    packet(4) = Y - distanceY*(25-j)/25;
+    packet(7) = Z - distanceZ*(25-j)/25;
         returnPacket = pp.command(SERV_ID, packet);
         innererror = norm([returnPacket(1),returnPacket(4),returnPacket(7)] -[packet(1),packet(4),packet(7)]);
         %disp(error);

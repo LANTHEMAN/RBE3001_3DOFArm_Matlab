@@ -50,9 +50,9 @@ K = 0;
 %     Ci=0;
 
 while (1)
-    packet(1) = 0;
+    packet(1) = -600;
     packet(4) = 340;
-    packet(7) = 0;
+    packet(7) = 600;
     K = K+1;
     if K > 4
         K = 1;

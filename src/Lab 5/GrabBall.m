@@ -1,4 +1,4 @@
-function [ returnPacket ] = GrabBall(SERV_ID,pp,positionX,positionY,positionZ,thereisball,returnPacket,PLOTTT,ACTUALX,ACTUALY,ACTUALZ)
+function [ returnPacket ] = GrabBall(SERV_ID,pp,positionX,positionY,positionZ,thereisball,returnPacket,PLOTTT,ACTUALX,ACTUALY,ACTUALZ,secure)
 L1 = 135;
 L2 = 175;
 L3 = 169.28;
@@ -37,20 +37,17 @@ packet = zeros(15, 1, 'single');
             pause(0.5);
         end
         if i == 4 && positionReady == 1
-            TorqueOffSet = Torque;
+            %TorqueOffSet = Torque;
             [ packet,returnPacket ] = gripBall( SERV_ID,pp,packet );
             positionReady = 0;
         end
         if i == 5 && positionReady == 1
             pause(2);
             returnPacket = pp.command(SERV_ID, packet);
-            [TForce,ACTUALX,ACTUALY,ACTUALZ,TIP] = TIPForce(returnPacket,(Torque-TorqueOffSet),L1,L2,L3);
+            [TForce,ACTUALX,ACTUALY,ACTUALZ,TIP] = TIPForce(returnPacket,(Torque),L1,L2,L3);
             disp('T')
-            
-            disp(Torque-TorqueOffSet)
-            disp(TorqueOffSet)
-            
-            if Torque(2) < -2500
+            disp(Torque)
+            if secure == 1
                 i = i+1;
             end
             positionReady = 0;
@@ -66,5 +63,7 @@ packet = zeros(15, 1, 'single');
             END = 1;
         end
     end
+    
+    
 
 

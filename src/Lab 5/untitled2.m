@@ -1,5 +1,5 @@
 
 model = createpde;
-importGeometry(model,'0_Link_servoGear_limb_0_Part_3.stl');
-pdegplot(model,'FaceLabels','on');
-
+importGeometry(model,'FLATFOOT_StanfordBunny_jmil_HIGH_RES_Smoothed.stl');
+h = generateMesh(model,'Hmax',300);
+mesh(h,'XData',20);

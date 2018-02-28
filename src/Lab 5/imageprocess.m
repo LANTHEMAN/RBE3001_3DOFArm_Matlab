@@ -31,10 +31,14 @@ YellowCenter = regionprops(yimg3,'centroid'); %find center
 Ycentroids = cat(1, YellowCenter.Centroid); %plot center
 % figure(2);
 % imshow(yimg3);
+% figure(3);
+% imshow(img);
+% figure(4);
 % imshow(YellowImage);
 % hold on
 % plot(Ycentroids(:,1), Ycentroids(:,2), 'b*')
 % hold off
+% disp(Ycentroids);
 
 [gimg1,GreenImage] = createGreenMask(img); %create green binary mask
 %gimg1 = medfilt2(GreenMask); %eliminate salt & pepper

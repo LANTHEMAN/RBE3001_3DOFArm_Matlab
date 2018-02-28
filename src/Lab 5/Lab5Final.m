@@ -4,7 +4,8 @@ import org.hid4java.event.*;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.lang.*;
-
+one = 1;
+z = 0;
 L1 = 135;
 L2 = 175;
 L3 = 169.28;
@@ -32,6 +33,9 @@ else
 end
 if isempty(YellowCenter) == 0  
     [YpositionX,YpositionY,YpositionZ] = GeneratePositions( YellowCenter );
+    disp(YpositionX);
+    disp(YpositionY);
+    disp(YpositionZ);
     Ythereisball = 1;
 else
     Ythereisball = 0;
@@ -46,21 +50,24 @@ pause(2);
 [PLOTTT,TF] = LivePlot();
 
 if Bthereisball == 0
-   disp('no ball');
+   disp('no Blue ball');
 else
-    returnPacket = GrabBall(SERV_ID,pp,BpositionX,BpositionY,BpositionZ,Bthereisball,returnPacket,PLOTTT,ACTUALX,ACTUALY,ACTUALZ);
+    disp('GRABBING BLUEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE!!');
+    returnPacket = GrabBall(SERV_ID,pp,BpositionX,BpositionY,BpositionZ,Bthereisball,returnPacket,PLOTTT,ACTUALX,ACTUALY,ACTUALZ,one);
 end
 
 if Ythereisball == 0
-   disp('no ball');
+   disp('no Yellow ball');
 else
-returnPacket = GrabBall(SERV_ID,pp,YpositionX,YpositionY,YpositionZ,Ythereisball,returnPacket,PLOTTT,ACTUALX,ACTUALY,ACTUALZ);
+    disp('GRABBING YELLOWWWWWWWWWWWWWWWWWWWWWWWWWWWWW!!');
+returnPacket = GrabBall(SERV_ID,pp,YpositionX,YpositionY,YpositionZ,Ythereisball,returnPacket,PLOTTT,ACTUALX,ACTUALY,ACTUALZ,one);
 end
 
 if Gthereisball == 0
-   disp('no ball');
+   disp('no Green ball');
 else
-returnPacket = GrabBall(SERV_ID,pp,GpositionX,GpositionY,GpositionZ,Gthereisball,returnPacket,PLOTTT,ACTUALX,ACTUALY,ACTUALZ);
+    disp('GRABBING GREENNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN!!');
+returnPacket = GrabBall(SERV_ID,pp,GpositionX,GpositionY,GpositionZ,Gthereisball,returnPacket,PLOTTT,ACTUALX,ACTUALY,ACTUALZ,z);
 end
  
 
