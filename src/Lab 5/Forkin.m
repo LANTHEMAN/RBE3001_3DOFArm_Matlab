@@ -1,3 +1,5 @@
+%calculate forward kinematics
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function [ pr1,pr2 , pr3,P1,P2,P3,ACTUALX,ACTUALY,ACTUALZ,TIP ] = Forkin(returnPacket,L1,L2,L3 )
     pr1 = TictoRadian(returnPacket(1));
     pr2 = TictoRadian(returnPacket(4));

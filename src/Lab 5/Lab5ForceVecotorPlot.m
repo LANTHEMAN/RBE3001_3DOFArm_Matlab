@@ -1,15 +1,3 @@
-%%
-% RBE3001 - Laboratory 1 
-% 
-% Instructions
-% ------------
-% Welcome again! This MATLAB script is your starting point for Lab
-% 1 of RBE3001. The sample code below demonstrates how to establish
-% communication between this script and the Nucleo firmware, send
-% setpoint commands and receive sensor data.
-% 
-% IMPORTANT - understanding the code below requires being familiar
-% with the Nucleo firmware. Read that code first.
 
 javaaddpath('../../lib/hid4java-0.5.1.jar');
 
@@ -50,9 +38,11 @@ K = 0;
 %     Ci=0;
 
 while (1)
+    %send to initial positions
     packet(1) = -600;
     packet(4) = 340;
     packet(7) = 600;
+    %update data marker
     K = K+1;
     if K > 4
         K = 1;
@@ -60,19 +50,15 @@ while (1)
     returnPacket = pp.command(SERV_ID, packet);
     %record time
     time = toc;
+    %calculate tip force 
     [ Torque,TorqueArrayA,TorqueArrayB,TorqueArrayC ] = TorqueRead(returnPacket,time,K,TorqueArrayA,TorqueArrayB,TorqueArrayC);
-    
     [TForce,ACTUALX,ACTUALY,ACTUALZ,TIP] = TIPForce(returnPacket,Torque,L1,L2,L3);
+    %magnify for easy plotting
     TForce = TForce * 10;
-    TForce = TForce;
-    disp('Torque');
-    disp(Torque);
-    disp(TForce)
-    
+    %refresh plots
     refreshdata(PLOTTT);
     refreshdata(TF);
-    %quiver3(TIP(1),TIP(2),TIP(3),TForce(1),TForce(2),TForce(3));
-    
+ 
     pause(0.1) 
 end
 

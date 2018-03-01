@@ -1,3 +1,5 @@
+%process camera image, output object centers
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function [ Bcentroids,Ycentroids,Gcentroids ] = imageprocess(  )
 %% Instantiate hardware (turn on camera)
 if ~exist('cam', 'var') % connect to webcam iff not connected
@@ -5,8 +7,9 @@ if ~exist('cam', 'var') % connect to webcam iff not connected
     pause(1); % give the camera time to adjust to lighting
 end
 tic 
-img = snapshot(cam);
+img = snapshot(cam); %snap a picture
 toc
+
 tic
 [bimg1,BlueImage] = createBlueMask(img); %create blue binary mask
 % bimg1 = medfilt2(BlueMask); %eliminate salt & pepper

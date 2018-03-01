@@ -1,3 +1,5 @@
+%intialize live plot, end factor trajectory plot and force vector plot
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function [PLOTTT,TF] = LivePlot( )
     figure(1);
     PLOTTT = plot3(0,0,0,'-o');

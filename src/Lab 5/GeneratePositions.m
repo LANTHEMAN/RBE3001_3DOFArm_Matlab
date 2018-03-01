@@ -1,3 +1,5 @@
+%generate trajectories to grab and sort each color balls
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function [ positionsX,positionsY,positionsZ] = GeneratePositions( ColorCenter )
 L1 = 135;
 L2 = 175;

@@ -1,3 +1,5 @@
+%solve inverse kinematics
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function [A1,A2,A3]  = ikin3001 (px,py,pz,L1,L2,L3)
     L4 = ((pz - L1)^2 + px^2+py^2)^(0.5);
     T1 = atan2d(py,px); %Theta 1 equation
