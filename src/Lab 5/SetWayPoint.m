@@ -1,6 +1,6 @@
 %generate trajectories to grab and sort each color balls
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-function [ positionsX,positionsY,positionsZ] = GeneratePositions( ColorCenter )
+function [ positionsX,positionsY,positionsZ] = SetWayPoint( ColorCenter )
 L1 = 135;
 L2 = 175;
 L3 = 169.28;
